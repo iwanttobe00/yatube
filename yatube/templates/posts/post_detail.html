@@ -1,0 +1,61 @@
+{% extends "base.html" %} 
+
+{% block title %} {{ post.text|truncatechars:30 }} {% endblock title %}
+
+{% block content %}
+{% load thumbnail %}
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col-3">
+      <aside>
+        <ul class="list-group list-group-flush">
+          {% if post.group %} 
+            <li class="list-group-item">
+              Группа:
+              <a href="{% url "posts:group_list" post.group.slug %}">
+                {{ post.group.title }}
+              </a>
+            </li>
+          {% endif %}
+          <li class="list-group-item">
+            Автор: 
+            <a href="{% url "posts:profile" post.author.username %}">
+              {{ post.author }}
+            </a>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Всего постов автора:  {{ post_count }}
+          </li>
+        </ul>
+      </aside>
+    </div>
+      <div class="col-9">
+        <article class="card">
+          {% thumbnail post.image "960x339" crop="center"  upscale=True as im %}
+            <img class="card-img-top" src="{{ im.url }}">
+          {% endthumbnail %}
+    <div class="card-body">
+      <p class="card-text">
+        {{ post.text }}
+      </p>
+      {% if user == post.author %}
+        <div class="row">
+          <div class="col-6">
+            <a class="text-muted"
+              href="{% url "posts:post_edit" post.id %}">
+              редактировать запись
+            </a>
+          </div>
+          <div class="col-6 text-end">
+            <span class="text-muted">
+              {{ post.pub_date|date:"d E Y H:i" }}
+            </span> 
+          </div>
+        </div>
+      {% endif %}
+    </div>
+        </article>
+  </div>
+  {% include "includes/comment.html" %}
+</div>
+{% endblock %}

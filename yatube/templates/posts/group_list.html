@@ -1,0 +1,28 @@
+{% extends "base.html" %} 
+
+{% block title %} Groups - Yatube {% endblock title %}
+
+{% block content %}
+
+    <h1><center>Здесь будет информация о группах проекта <span style="color:red">Ya</span>tube</center></h1>
+    <h1>{{ group.title }}</h1>
+    <p>{{ group.description }}</p>
+     <article>
+      {% for post in page_obj %}
+      <ul>
+        <li>
+          Автор: <a href="{% url "posts:profile" post.author.username %}">
+             {{ post.author.get_full_name }}
+            </a>
+        </li>
+        <li>
+          Дата публикации: {{ post.pub_date|date:"d E Y H:i" }}
+        </li>
+      </ul>
+      <p> {{ post.text }}</p>
+      {% if not forloop.last %} <hr> {% endif %}
+    {% endfor %}
+  </article> 
+{% include "includes/single_post.html" with show_group_link=True %}
+{% include "posts/includes/paginator.html" %} 
+{% endblock %} 

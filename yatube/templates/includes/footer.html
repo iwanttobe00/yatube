@@ -1,0 +1,17 @@
+ <!-- тег span используется для добавления нужных стилей отдельным участкам текста --> 
+ <ul class="list-inline">
+ <li class="list-inline-item"> 
+    <a class="nav-link" 
+    href="{% url "about:author" %}">
+   Об авторе 
+ </a>
+</li>
+
+    <li class="list-inline-item">
+    <a class="nav-link" 
+    href="{% url "about:tech" %}">
+    Технологии
+    </a>    
+    </li>
+</ul>
+ <p>© 2022 Copyright <span style="color:red">Ya</span>tube</p> 

@@ -1,0 +1,30 @@
+
+{% comment %} 
+        {% if show_profile_link == True %}
+  <a href="{% url 'posts:profile' post.author.username %}">
+    все посты пользователя
+  </a> 
+  {% else %}
+  <a href="{% url 'posts:group_list' post.group.slug %}">
+    Все записи группы
+</a> 
+    {% endif %}
+      </li>
+      <li>
+        Дата публикации: {{ post.pub_date|date:"d E Y" }}
+      </li>
+    </ul>
+    <p> {{ post.text }}</p>
+    <p>
+        <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
+    </p>
+
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+</article>  {% endcomment %}
+
+
+  
+
+
+

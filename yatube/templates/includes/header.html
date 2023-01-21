@@ -1,0 +1,64 @@
+ {% load static %}
+<nav class="navbar navbar-light" style="background-color: lightskyblue">
+    <div class="container">
+      <a class="navbar-brand" href="{% url "posts:index" %}">
+        <img src="{% static "img/logo.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        <span style="color:red">Ya</span>tube
+      </a>
+  {% with request.resolver_match.view_name as view_name %}
+     {% if request.user.is_authenticated %}
+          <nav class="navbar navbar-expand-md bg-lightskyblue navbar-lightskyblue">   
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                  <ul class="nav nav-pills">
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link 
+                  {% if view_name  == "posts:post_create" %}active{% endif %}"
+                   href="{% url "posts:post_create" %}">Новая запись</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-light 
+            {% if view_name == "users:password_reset_form" %}active{% endif %}"
+            href="{% url "users:password_reset_form" %}">
+            Изменить пароль
+          </a>
+                </li>    
+                <li class="nav-item">
+                  <a class="nav-link link-light" 
+                  href="{% url "users:logout" %}">
+                  Выйти
+                  </a>
+                  <li>
+                  Пользователь: {{ user.username }}
+                  </li>
+                </li>        
+              </ul>
+            </div>  
+          </nav>
+          {% comment %} КОНЕНЕЦНЕЦГ {% endcomment %}
+          {% else %}
+       {% with request.resolver_match.view_name as view_name %}
+         <nav class="navbar navbar-expand-md bg-lightskyblue navbar-lightskyblue">   
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+         <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="nav nav-pills">
+          <li class="nav-item"> 
+            <a class="nav-link link-light" href="{% url "users:login" %}">
+              Войти
+            </a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link link-light" href="{% url "users:signup" %}">
+              Регистрация
+            </a>
+          </li>
+          </ul>
+          </div>
+         {% endwith %}
+    {% endif %}
+   {% endwith %}
